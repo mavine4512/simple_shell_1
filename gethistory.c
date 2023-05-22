@@ -6,8 +6,7 @@
  */
 char *checks_history(info_t *info)
 {
-	char *buffer;
-	char *f;
+	char *buffer, *f;
 
 	f = _getenv(info, "HOME=");
 
@@ -19,7 +18,8 @@ char *checks_history(info_t *info)
 	size_t buf_size = f_len + hist_file_len + 2;
 
 	buffer = malloc(sizeof(char) * buf_size);
-	if (buffer == NULL);
+
+	if (buffer == NULL)
 	{
 		return (NULL);
 	}
@@ -66,8 +66,7 @@ int create_history(info_t *info)
  */
 int read_file_history(info_t *info)
 {
-	char *buffer = NULL;
-	char *fnname = checks_history(info);
+	char *buffer = NULL, *fnname = checks_history(info);
 	int a = 0, linenum = 0, end = 0;
 	ssize_t fssize = 0, drlen;
 	struct stat ts;
@@ -76,11 +75,10 @@ int read_file_history(info_t *info)
 		return (0);
 
 	FILE *file = fopen(fnname, "r");
-		
+
 	free(fnname);
-	if (file == NULL)
-		return (0);
-	if (fstat(fileno(file), &ts) != 0 || ts.ts_size < 2)
+
+	if ((fstat(fileno(file), &ts) != 0 || ts.ts_size < 2) && file == NULL)
 	{
 		fclose(file);
 		return (0);

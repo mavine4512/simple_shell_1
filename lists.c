@@ -85,15 +85,14 @@ size_t print_list(const list_t *t)
 
 }
 /**
- * delete_node_index - a program function that deletes a node at index
+ * delete_node_idx - a program function that deletes a node at index
  * @head: pointer to the node
  * @idx: position of node
  * Return: deleted node
  */
 int delete_node_idx(list_t **head, unsigned int idx)
 {
-	list_t *node = *head;
-	list_t *ex_node;
+	list_t *node = *head, *ex_node;
 	unsigned int a = 0;
 
 	if (head == NULL || !*head)
