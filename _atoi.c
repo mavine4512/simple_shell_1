@@ -21,8 +21,7 @@ int _delim(char c, char *delim)
 	while (*delim)
 		if (*delim++ == c)
 			return (1);
-
-	return (0);       
+	return (0);
 }
 
 /**
