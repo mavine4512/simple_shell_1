@@ -6,7 +6,7 @@
  */
 void init_info_struct(info_t *info)
 {
-	memse(info, 0, sizeof(info_t));
+	memset(info, 0, sizeof(info_t));
 }
 /**
  * init_set_info - a program function that sets info_t

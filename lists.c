@@ -33,7 +33,7 @@ list_t *add_node_start(list_t **head, int count, const char *str)
  * add_node_end - a program function that add a node at the end
  * of the list
  * @head:pointer to the node
- * @str: sting
+ * @str: string
  * @count: number of input
  * Return: end node
  */
@@ -90,7 +90,7 @@ size_t print_list(const list_t *t)
  * @idx: position of node
  * Return: deleted node
  */
-int delete_node_index(list_t **head, unsigned int idx)
+int delete_node_idx(list_t **head, unsigned int idx)
 {
 	list_t *node = *head;
 	list_t *ex_node;

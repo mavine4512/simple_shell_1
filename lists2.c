@@ -23,7 +23,7 @@ char **list_strings(list_t *head)
 {
 	char **st, *str;
 	list_t *node = head;
-	size_t a = list_base(head), x;
+	size_t a = list_length_linked (head), x;
 
 	if (head == NULL || a == NULL)
 		return (NULL);

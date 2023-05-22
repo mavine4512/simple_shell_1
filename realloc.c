@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * _fmemory - a function program that prints memory
+ * _memset - a function program that prints memory
  * @x: character pointer
  * @y: character input
  * @n: number of bytes
  * Return: memory
  */
-char *_fmemory(char *x, char y, unsigned int n)
+char *_memset(char *x, char y, unsigned int n)
 {
 	unsigned int a;
 
