@@ -16,6 +16,7 @@
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
+#define INFO_INIT { 0 }
 
 /* for conver_number() */
 #define CONVERT_LOWERCASE	1
@@ -112,7 +113,7 @@ typedef struct builtin
 /*task 0 */
 int _isdigit(int c);
 
-/*toem_shloop.c */
+/*shloop.c */
 int hsh(info_t *, char **);
 int find_builtin(info_t *);
 void find_cmd(info_t *);
