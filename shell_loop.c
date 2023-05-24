@@ -27,11 +27,11 @@ int hsh(info_t *info, char **av)
 		}
 		else if (inter_active(info))
 			_putchar('\n');
-		free_info(info, 0);
+		free_info_struct(info, 0);
 	}
 	 create_history(info);
-	 set_info(info, 1);
-	if (!is_interactive(info) && info->status)
+	 free_info_struct(info, 1);
+	if (!inter_active(info) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
 	{
@@ -52,7 +52,7 @@ int hsh(info_t *info, char **av)
  */
 int find_builtin(info_t *info)
 {
-	int i;
+	int i, built_ret = -1;
 	builtin_table builtintbl[] = {
 		{"exit", _myexit},
 		{"env", _myenv},
@@ -69,10 +69,10 @@ int find_builtin(info_t *info)
 		if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
 		{
 			info->line_count++;
-			built_in_ret = builtintbl[i].func(info);
+			built_ret = builtintbl[i].func(info);
 			break;
 		}
-	return (built_in_ret);
+	return (built_ret);
 }
 
 /**
@@ -136,7 +136,7 @@ void fork_cmd(info_t *info)
 	{
 		if (execve(info->path, info->argv, get_environ_info(info)) == -1)
 		{
-			free_info(info, 1);
+			free_info_struct(info, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);

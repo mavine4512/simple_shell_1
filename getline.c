@@ -8,7 +8,7 @@
  */
 ssize_t input_buffer(info_t *info, char **buffer, size_t *base)
 {
-	ssize_t base_p = 0;
+	size_t base_p = 0;
 	ssize_t q = 0;
 
 	if (!*base)
@@ -78,13 +78,13 @@ ssize_t getline_input(info_t *info)
 	return (q);
 }
 /**
- * read_buffer - a program function that reads the buffer memory
+ * read_buf - a program function that reads the buffer memory
  * @info: information
  * @buffer:  meory location
  * Return: buffer
  * @a: input size
  */
-ssize_t read_buffer(info_t *info, size_t *a, char *buffer)
+ssize_t read_buf(info_t *info, char *buffer, size_t *a)
 {
 	ssize_t q = 0;
 
@@ -119,7 +119,7 @@ int _getline(info_t *info, char **ptr, size_t *leng)
 		c = *leng;
 	if (a == base)
 		a = base = 0;
-	q = read_buffer(info, buffer, &base);
+	q = read_buf(info, buffer, &base);
 	if (q == -1 || (q == 0 && base == 0))
 		return (-1);
 	s = _strchr(buffer + a, '\n');

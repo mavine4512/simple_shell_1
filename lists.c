@@ -4,7 +4,7 @@
  * start of list
  * @head: pointer to the node
  * @str: string input
- * @count: number of node
+ * @num: number of node
  * Return: added node
  */
 list_t *add_node_start(list_t **head, const char *str, int num)
@@ -36,10 +36,10 @@ list_t *add_node_start(list_t **head, const char *str, int num)
  * of the list
  * @head:pointer to the node
  * @str: string
- * @count: number of input
+ * @num: number of input
  * Return: end node
  */
-list_t *add_node_end(list_t **head,  const char *str,  int count)
+list_t *add_node_end(list_t **head,  const char *str,  int num)
 {
 	list_t *node, *current_node;
 
@@ -49,6 +49,9 @@ list_t *add_node_end(list_t **head,  const char *str,  int count)
 	node = *head;
 	current_node = malloc(sizeof(list_t));
 	if (!current_node)
+		return (NULL);
+	current_node->num = num;
+	if (str)
 	{
 		current_node->str = _strdup(str);
 		if (current_node->str == NULL)
@@ -128,7 +131,7 @@ int delete_node_idx(list_t **head, unsigned int idx)
  */
 void free_list_all(list_t **head_node)
 {
-	list_t *node, node->next, *head;
+	list_t *node, *next_node, *head;
 
 	if (!head_node || !*head_node)
 		return;

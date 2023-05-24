@@ -60,11 +60,11 @@ int get_setenv(info_t *info, char *temp, char *eval)
 	if (!buffer)
 		return (1);
 	_strcpy(buffer, temp);
-	_strcat(buffer, "=");
-	_strcat(buffer, eval);
+	_strcati(buffer, "=");
+	_strcati(buffer, eval);
 	node = info->env;
 	do {
-		b = pointer(node->str, temp);
+		b = starts_with(node->str, temp);
 		if (b && *b == '=')
 		{
 			free(node->str);

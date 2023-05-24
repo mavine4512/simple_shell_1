@@ -83,7 +83,7 @@ size_t print_list_all(const list_t *t)
  * @s: character input
  * Return: node or NULL
  */
-list_t *node_pointer(list_t *node, char prev, char s)
+list_t *node_pointer(list_t *node, char *prev, char s)
 {
 	char *b = NULL;
 
@@ -91,11 +91,9 @@ list_t *node_pointer(list_t *node, char prev, char s)
 	{
 		b = starts_with(node->str, prev);
 		if (b && ((s == -1) || (*b == s)))
-		{
 			return (node);
-		}
-		return (NULL);
 	}
+	return (NULL);
 }
 /**
  * get_node - a program function that gets node

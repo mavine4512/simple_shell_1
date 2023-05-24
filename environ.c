@@ -7,7 +7,7 @@
  */
 int _myenv(info_t *info)
 {
-	print_list_str(info->env);
+	print_list_all(info->env);
 	return (0);
 }
 
@@ -24,7 +24,7 @@ char *_getenv(info_t *info, const char *name)
 
 	while (node)
 	{
-		i = start_with(node->str, name);
+		i = starts_with(node->str, name);
 		if (i && *i)
 			return (i);
 		node = node->next;
@@ -45,7 +45,7 @@ int _mysetenv(info_t *info)
 		_eputs("Error: incorrect number of arguements\n");
 		return (1);
 	}
-	if (_setenv(info, info->argv[1], info->argv[2]))
+	if (get_setenv(info, info->argv[1], info->argv[2]))
 		return (0);
 	return (1);
 }

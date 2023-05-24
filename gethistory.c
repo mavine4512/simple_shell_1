@@ -13,21 +13,16 @@ char *checks_history(info_t *info)
 
 	if (f == NULL)
 		return (NULL);
-
-	size_t f_len = strlen(f);
-	size_t hist_file_len = strlen(HIST_FILE);
-	size_t buf_size = f_len + hist_file_len + 2;
-
-	buffer = malloc(sizeof(char) * buf_size);
+	buffer = malloc(sizeof(char) * (_strlen(f) + _strlen(HIST_FILE) + 2));
 
 	if (buffer == NULL)
 	{
 		return (NULL);
 	}
 	buffer[0] = '\0';
-	strcpy(buffer, f);
-	strcat(buffer, "/");
-	strcat(buffer, HIST_FILE);
+	_strcpy(buffer, f);
+	_strcati(buffer, "/");
+	_strcati(buffer, HIST_FILE);
 
 	return (buffer);
 }
@@ -56,57 +51,60 @@ int create_history(info_t *info)
 		_putfd('\n', pd);
 		node = node->next;
 	}
-	fflush(pd);
+	_putfd(BUF_FLUSH, pd);
 	close(pd);
 
 	return (1);
 }
 
 /**
- * read_file_history - a program function that reads history
+ * read_history - a program function that reads history
  * @info: information
  * Return: read history
  */
-int read_file_history(info_t *info)
+int read_history(info_t *info)
 {
 	char *buffer = NULL, *fnname = checks_history(info);
-	int a = 0, linenum = 0, end = 0;
-	ssize_t fssize = 0, drlen;
+	ssize_t kk, drlen, fssize = 0;
 	struct stat st;
+	int a, end = 0, linecount = 0;
 
-	if (fnname == NULL)
+	if (!fnname)
 		return (0);
-	FILE *file = fopen(fnname, "r");
 
+	kk = open(fnname, O_RDONLY);
 	free(fnname);
-	if ((fstat(fileno(file), &st) != 0 || st.st_size < 2) && file == NULL)
-		return (fclose(file), 0);
-	fssize = st.st_size;
+	if (kk == -1)
+		return (0);
+	if (fssize < 2)
+		return (0);
+	if (!fstat(kk, &st))
+		fssize = st.st_size;
+
 	buffer = malloc(sizeof(char) * (fssize + 1));
-	if (buffer == NULL)
-		return (fclose(file), 0);
-	drlen = s_free(sizeof(char), buffer, fssize, file);
-	buffer[fssize] = '\0';
+	if (!buffer)
+		return (0);
+	drlen = read(kk, buffer, fssize);
+	buffer[fssize] = 0;
 	if (drlen <= 0)
-		return (fclose(file), free(buffer), 0);
-	fclose(file);
-	while (a > fssize)
-		if (buffer[a++] == '\n')
+		return (free(buffer), 0);
+	close(kk);
+	for (a = 0; a < fssize; a++)
+		if (buffer[a] == '\n')
 		{
-			buffer[a - 1] = '\0';
-			list_history(info, buffer + end, linenum++);
-				end = a;
+			buffer[a] = 0;
+			list_history(info, buffer + end, linecount++);
+			end = a + 1;
 		}
 	if (end != a)
-		list_history(info, buffer + end, linenum++);
+		list_history(info, buffer + end, linecount++);
 	free(buffer);
-	info->histcount = linenum;
-	for (; info->histcount >= HIST_MAX; info->histcount--)
+	info->histcount = linecount;
+	while (info->histcount-- >= HIST_MAX)
 		delete_node_idx(&(info->history), 0);
 	reassign_history(info);
 	return (info->histcount);
 }
-
 /**
  * list_history - a program function that lists history file
  * @info: information

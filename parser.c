@@ -68,11 +68,11 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 		{
 			path = dup_chars(pathstr, k, i);
 			if (!*path)
-				__strcat(path, cmd);
+				_strcati(path, cmd);
 			else
 			{
-				_strcat(path, "/");
-				_strcat(path, cmd);
+				_strcati(path, "/");
+				_strcati(path, cmd);
 			}
 			if (is_cmd(info, path))
 				return (path);

@@ -63,7 +63,7 @@ char **strtow2(char *str, char d)
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 
-	for (i = 0; i < str[i] != '\0'; i++)
+	for (i = 0;  str[i] != '\0'; i++)
 	{
 		if ((str[i] != d && str[i + 1] == d) || str[i + 1] == d ||
 				(str[i] != d && !str[i + 1]))
@@ -76,12 +76,13 @@ char **strtow2(char *str, char d)
 	s = malloc((1 + numWords) * sizeof(char *));
 	for (i = 0; i < numWords; i++)
 	{
-		if (str[i] == d || i == str.Length)
+		if (str[i] == d || str[i] != '\0')
 		{
 			if (i - startIndex > 0)
 			{
 				wordlen = i - startIndex;
-				s[wordIndex] = str.Substring(startIndex, wordlen);
+				_strncpy(s[wordIndex], str + startIndex, wordlen);
+				s[wordIndex][wordlen] = '\0';
 				wordIndex++;
 			}
 			startIndex = i + 1;

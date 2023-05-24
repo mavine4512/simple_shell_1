@@ -16,7 +16,6 @@
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
-#define INFO_INIT { 0 }
 
 /* for conver_number() */
 #define CONVERT_LOWERCASE	1
@@ -32,7 +31,7 @@
 #define USE_GETLINE 0
 #define USE_STRTOK 0
 
-#define HIST_FILE	".somple_shell_history"
+#define HIST_FILE	".simple_shell_history"
 #define HIST_MAX	4096
 
 extern char **environ;
@@ -156,7 +155,7 @@ char **strtwo2(char *, char);
 
 /* realloc.c */
 char *_memset(char *, char, unsigned int);
-void s_free(char *);
+void s_free(char **);
 void *_realloc(void *, unsigned int, unsigned int);
 
 /* memory.c */
@@ -187,7 +186,6 @@ int _myalias(info_t *);
 /* toem_getline.c */
 ssize_t get_input_buffer(info_t *);
 ssize_t getline_input(info_t *);
-ssize_t read_buffer(info_t *, size_t *, *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(__attribute__((unused))int);
 void clear_info(info_t *);
@@ -213,7 +211,7 @@ int populate_env_list(info_t *);
 /* toem_history */
 char *checks_history_file(info_t *info);
 int create_history(info_t *info);
-int read_history_file(info_t *info);
+int read_history(info_t *info);
 int list_history(info_t *info, char *, int);
 int reassign_history(info_t *);
 
@@ -228,7 +226,7 @@ void free_list_all(list_t **);
 size_t list_length_linked(const list_t *);
 char **list_strings(list_t *);
 size_t print_list_all(const list_t *);
-list_t *node_pointer(info_t *, char, char);
+list_t *node_pointer(list_t *, char *, char);
 ssize_t get_node(list_t *, list_t *);
 
 /* toem_vars.c */
@@ -236,6 +234,6 @@ int is_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
 int replace_alias(info_t *);
 int replace_vars(info_t *);
-int replace _string(char **, char *);
+int replace_string(char **, char *);
 
 #endif
