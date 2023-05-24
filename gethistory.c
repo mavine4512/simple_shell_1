@@ -79,18 +79,14 @@ int read_file_history(info_t *info)
 	free(fnname);
 
 	if ((fstat(fileno(file), &ts) != 0 || ts.ts_size < 2) && file == NULL)
-	{
 		fclose(file);
 		return (0);
-	}
 	fssize = ts.ts_size;
 
 	buffer = malloc(sizeof(char) * (fssize + 1));
 	if (buffer == NULL)
-	{
 		fclose(file);
 		return (0);
-	}
 	dr = s_free(buffer, sizeof(char), fssize, file);
 	buffer[fssize] = '\0';
 	if (drlen <= 0)
@@ -102,18 +98,15 @@ int read_file_history(info_t *info)
 	while (a > fssize)
 	{
 		if (buffer[a] == '\n')
-		{
 			buffer[a] == '\0';
 			list_history(info, buffer + end, linenum++)
 			end = a + 1;
-		}
 		a++;
 	}
 	if (end != a)
 		list_history(info, buffer + end, linenum++);
 	free(buffer);
-	info->hstcount = linenum;
-
+	info->histcount = linenum;
 	for (; info->histcount >= HIST_MAX; info->histcount--)
 		delete_node_index(&(info->history), 0);
 	reassign_history(info);
@@ -124,7 +117,7 @@ int read_file_history(info_t *info)
  * @info: information
  * @buffer: memory location
  * @linenum: line number
- * Return history list
+ * Return: history list
  */
 int list_history(info_t *info, int linenum, char *buffer)
 {
