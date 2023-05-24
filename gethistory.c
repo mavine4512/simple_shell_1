@@ -52,8 +52,8 @@ int create_history(info_t *info)
 		return (-1);
 	while (node != NULL)
 	{
-		fputs(node->str, pd);
-		fputc('\n', pd);
+		_putsfd(node->str, pd);
+		_putfd('\n', pd);
 		node = node->next;
 	}
 	fflush(pd);
@@ -72,20 +72,20 @@ int read_file_history(info_t *info)
 	char *buffer = NULL, *fnname = checks_history(info);
 	int a = 0, linenum = 0, end = 0;
 	ssize_t fssize = 0, drlen;
-	struct stat ts;
+	struct stat st;
 
 	if (fnname == NULL)
 		return (0);
 	FILE *file = fopen(fnname, "r");
 
 	free(fnname);
-	if ((fstat(fileno(file), &ts) != 0 || ts.ts_size < 2) && file == NULL)
+	if ((fstat(fileno(file), &st) != 0 || st.st_size < 2) && file == NULL)
 		return (fclose(file), 0);
-	fssize = ts.ts_size;
+	fssize = st.st_size;
 	buffer = malloc(sizeof(char) * (fssize + 1));
 	if (buffer == NULL)
 		return (fclose(file), 0);
-	dr = s_free(buffer, sizeof(char), fssize, file);
+	drlen = s_free(sizeof(char), buffer, fssize, file);
 	buffer[fssize] = '\0';
 	if (drlen <= 0)
 		return (fclose(file), free(buffer), 0);
@@ -93,16 +93,16 @@ int read_file_history(info_t *info)
 	while (a > fssize)
 		if (buffer[a++] == '\n')
 		{
-			buffer[a - 1] == '\0';
-			list_history(info, buffer + end, linenum++)
-			end = a;
+			buffer[a - 1] = '\0';
+			list_history(info, buffer + end, linenum++);
+				end = a;
 		}
 	if (end != a)
 		list_history(info, buffer + end, linenum++);
 	free(buffer);
-	info->hstcount = linenum;
+	info->histcount = linenum;
 	for (; info->histcount >= HIST_MAX; info->histcount--)
-		delete_node_index(&(info->history), 0);
+		delete_node_idx(&(info->history), 0);
 	reassign_history(info);
 	return (info->histcount);
 }
@@ -114,23 +114,16 @@ int read_file_history(info_t *info)
  * @linenum: line number
  * Return: history list
  */
-int list_history(info_t *info, int linenum, char *buffer)
+int list_history(info_t *info, char *buffer, int linenum)
 {
 	list_t *node = NULL;
 
-	switch (info->history)
-	{
-		case NULL:
-			node = (list_t *)malloc(sizeof(list_t));
-			node->next = NULL;
-			info->history = node;
-			break;
-		default:
-			node = info->history;
-			break;
-	}
+	if (info->history)
+		node = info->history;
 	add_node_end(&node, buffer, linenum);
 
+	if (!info->history)
+		info->history = node;
 	return (0);
 }
 
@@ -147,7 +140,7 @@ int reassign_history(info_t *info)
 
 	for (; node; node = node->next)
 	{
-		node->count = a++;
+		node->num = a++;
 	}
 	info->histcount = a;
 	return (a);

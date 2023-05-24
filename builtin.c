@@ -22,7 +22,7 @@ int _myexit(info_t *info)
 			_eputchar('\n');
 			return (1);
 		}
-		infor->err_num = _erratoi(info->argv[1]);
+		info->err_num = _erratoi(info->argv[1]);
 		return (-2);
 	}
 	infor->err_num = -1;
@@ -45,12 +45,12 @@ int _mycd(info_t *info)
 		_puts("Error : getcwd failure emsg her\n");
 	if (!info->argv[1])
 	{
-		dir = _getenv(info, "HOME = ")
+		dir = _getenv(info, "HOME = ");
 			if (!dir)
 				chdir_ret =
 					chdir((dir = _getenv(info, "PWD = ")) ? dir : " / ");
 			else
-				chdir_ret = chdir(dir);
+				 chdir_ret = chdir(dir);
 	}
 	else if (_strcmp(info->argv[1], " - ") == 0)
 	{
@@ -73,8 +73,8 @@ int _mycd(info_t *info)
 	}
 	else
 	{
-		_setenv(info, "PWD=", _getenv(info, "PWD="));
-		_setenv(info, "PWD=", getcwd(buffer, 1024));
+		get_setenv(info, "PWD=", _getenv(info, "PWD="));
+		get_setenv(info, "PWD=", getcwd(buffer, 1024));
 	}
 	return (0);
 }

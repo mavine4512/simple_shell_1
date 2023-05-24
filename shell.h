@@ -122,7 +122,7 @@ void fork_cmd(info_t *);
 /* parser.c */
 int is_cmd(info_t *, char *);
 char *dup_chars(char *, int, int);
-char *find_path(info *, char *, char *);
+char *find_path(info_t *info, char *, char *);
 
 /*loopsh.c*/
 int loophsh(char **);
@@ -137,7 +137,7 @@ int _putsfd(char *str, int fd);
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
-char *_strcat(char *, char *);
+char *_strcati(char *, char *);
 
 /* string1.c */
 char *_strcpy(char *, char *);
@@ -156,7 +156,7 @@ char **strtwo2(char *, char);
 
 /* realloc.c */
 char *_memset(char *, char, unsigned int);
-void s_free(char **);
+void s_free(char *);
 void *_realloc(void *, unsigned int, unsigned int);
 
 /* memory.c */
@@ -187,9 +187,11 @@ int _myalias(info_t *);
 /* toem_getline.c */
 ssize_t get_input_buffer(info_t *);
 ssize_t getline_input(info_t *);
-ssize_t read_buffer(info_t *, size_t *, **);
+ssize_t read_buffer(info_t *, size_t *, *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(__attribute__((unused))int);
+void clear_info(info_t *);
+void set_info(info_t *, char**);
 
 /* toem_getlininfo.c */
 void init_info_struct(info_t *);
@@ -212,18 +214,18 @@ int populate_env_list(info_t *);
 char *checks_history_file(info_t *info);
 int create_history(info_t *info);
 int read_history_file(info_t *info);
-int list_history(info_t *, char *, int);
+int list_history(info_t *info, char *, int);
 int reassign_history(info_t *);
 
 /* toem_lists.c */
 list_t *add_node_start(list_t **, const char *, int);
 list_t *add_node_end(list_t **, const char *, int);
 size_t print_list(const list_t *);
-int delete_node_index(list_t **, unsigned int);
+int delete_node_idx(list_t **, unsigned int);
 void free_list_all(list_t **);
 
 /* toem_lists2.c */
-size list_length_linked(const list_t *);
+size_t list_length_linked(const list_t *);
 char **list_strings(list_t *);
 size_t print_list_all(const list_t *);
 list_t *node_pointer(info_t *, char, char);
@@ -234,6 +236,6 @@ int is_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
 int replace_alias(info_t *);
 int replace_vars(info_t *);
-int replace string(char **, char *);
+int replace _string(char **, char *);
 
 #endif

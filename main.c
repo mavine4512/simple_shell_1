@@ -15,7 +15,7 @@ void eputs(const char *str)
  * @agv: character input
  * Return: Always 0
  */
-int main(char **agv, int agc)
+int main(int agc, char **agv)
 {
 	int pd = 2;
 	info_t info[] = { INFO_INIT };
@@ -47,7 +47,7 @@ int main(char **agv, int agc)
 		info->readpd = pd;
 	}
 	populate_env_list(info);
-	read_history(info);
+	create_history(info);
 	hsh(info, agv);
 	return (EXIT_SUCCESS);
 }
