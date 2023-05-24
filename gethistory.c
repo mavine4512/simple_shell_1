@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * checks_history - a program function that gets history of files
  * @info: information
@@ -30,6 +31,7 @@ char *checks_history(info_t *info)
 
 	return (buffer);
 }
+
 /**
  * create_history - a program function tha creates history
  * @info: information
@@ -59,6 +61,7 @@ int create_history(info_t *info)
 
 	return (1);
 }
+
 /**
  * read_file_history - a program function that reads history
  * @info: information
@@ -73,9 +76,7 @@ int read_file_history(info_t *info)
 
 	if (fnname == NULL)
 		return (0);
-
 	FILE *file = fopen(fnname, "r");
-
 	free(fnname);
 
 	if ((fstat(fileno(file), &ts) != 0 || ts.ts_size < 2) && file == NULL)
@@ -84,7 +85,6 @@ int read_file_history(info_t *info)
 		return (0);
 	}
 	fssize = ts.ts_size;
-
 	buffer = malloc(sizeof(char) * (fssize + 1));
 	if (buffer == NULL)
 	{
@@ -98,7 +98,6 @@ int read_file_history(info_t *info)
 		free(buffer);
 		return (0);
 	fclose(file);
-
 	while (a > fssize)
 	{
 		if (buffer[a] == '\n')
@@ -113,18 +112,18 @@ int read_file_history(info_t *info)
 		list_history(info, buffer + end, linenum++);
 	free(buffer);
 	info->hstcount = linenum;
-
 	for (; info->histcount >= HIST_MAX; info->histcount--)
 		delete_node_index(&(info->history), 0);
 	reassign_history(info);
 	return (info->histcount);
 }
+
 /**
  * list_history - a program function that lists history file
  * @info: information
  * @buffer: memory location
  * @linenum: line number
- * Return history list
+ * Return: history list
  */
 int list_history(info_t *info, int linenum, char *buffer)
 {
@@ -145,6 +144,7 @@ int list_history(info_t *info, int linenum, char *buffer)
 
 	return (0);
 }
+
 /**
  * reassign_history - a program function that assigns history
  * list number

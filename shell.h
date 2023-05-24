@@ -35,7 +35,7 @@
 #define HIST_FILE	".somple_shell_history"
 #define HIST_MAX	4096
 
-exter char **environ;
+extern char **environ;
 
 /**
  * struct liststr - singly linked list
@@ -198,7 +198,7 @@ void free_info_struct(info_t *, int);
 
 /* toem_getenv.c*/
 char **get_environ_info(info_t *);
-int get_unsetenv(info_t *, char *)
+int get_unsetenv(info_t *, char *);
 int get_setenv(info_t *, char *, char *);
 
 /* toem_environ.c */
@@ -226,7 +226,7 @@ void free_list_all(list_t **);
 size list_length_linked(const list_t *);
 char **list_strings(list_t *);
 size_t print_list_all(const list_t *);
-list_t *node_pointer(info_t *, char , char);
+list_t *node_pointer(info_t *, char, char);
 ssize_t get_node(list_t *, list_t *);
 
 /* toem_vars.c */
