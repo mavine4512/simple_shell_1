@@ -57,3 +57,23 @@ int _putfd(char c, int fd)
 		buf[k++] = c;
 	return (1);
 }
+
+/**
+ * _putsfd - display an input string
+ * @str: the string to be display
+ * @fd: the filedescriptor to write to
+ * Return: the number of chars put
+ */
+int _putsfd(char *str, int fd)
+{
+	int m = 0;
+	
+	if (!str)
+		return (0);
+
+	while (*str)
+	{
+		m += _putfd(*str++,fd);
+	}
+	return (m);
+}

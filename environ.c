@@ -77,11 +77,11 @@ int _myunsetenv(info_t *info)
 }
 
 /**
- * populate_evn_list - aggrigate environment linked list
+ * populate_env_list - aggrigate environment linked list
  * @info: arguments used to maintain constant function prototype
  * Return: 0 success
  */
-int populate_evn_list(info_t *info)
+int populate_env_list(info_t *info)
 {
 	list_t *node = NULL;
 	size_t i;

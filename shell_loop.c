@@ -17,10 +17,10 @@ int hsh(info_t *info, char **av)
 		if (inter_active(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
-		input_size = get_input(info);
+		input_size = getline_input(info);
 		if (input_size != -1)
 		{
-			set_info(info, av);
+			init_set_info(info, av);
 			builtin_ret = find_builtin(info);
 			if (builtin_ret == -1)
 				find_cmd(info);
