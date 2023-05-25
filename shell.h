@@ -18,21 +18,21 @@
 #define BUF_FLUSH -1
 
 /* for conver_number() */
-#define CONVERT_LOWERCASE	1
-#define CONVERT_UNSIGNED	2
+#define CONVERT_LOWERCASE       1
+#define CONVERT_UNSIGNED        2
 
 /* for command chaining */
-#define CMD_NORM	0
-#define CMD_OR		1
-#define CMD_AND		2
-#define CMD_CHAIN	3
+#define CMD_NORM        0
+#define CMD_OR          1
+#define CMD_AND         2
+#define CMD_CHAIN       3
 
 /* 1 if using system getline() */
 #define USE_GETLINE 0
 #define USE_STRTOK 0
 
-#define HIST_FILE	".simple_shell_history"
-#define HIST_MAX	4096
+#define HIST_FILE       ".simple_shell_history"
+#define HIST_MAX        4096
 
 extern char **environ;
 
@@ -97,7 +97,6 @@ typedef struct passinfo
 #define INFO_INIT \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
 	0, 0, 0}
-
 /**
  *struct builtin - contains a builtin string and related function
  * @type: the builtin  command flag
@@ -121,7 +120,7 @@ void fork_cmd(info_t *);
 /* parser.c */
 int is_cmd(info_t *, char *);
 char *dup_chars(char *, int, int);
-char *find_path(info_t *info, char *, char *);
+char *find_path(info_t *, char *, char *);
 
 /*loopsh.c*/
 int loophsh(char **);
@@ -136,7 +135,7 @@ int _putsfd(char *str, int fd);
 int _strlen(char *);
 int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
-char *_strcati(char *, char *);
+char *_strcat(char *, char *);
 
 /* string1.c */
 char *_strcpy(char *, char *);
@@ -188,12 +187,15 @@ ssize_t get_input_buffer(info_t *);
 ssize_t getline_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(__attribute__((unused))int);
-void clear_info(info_t *);
-void set_info(info_t *, char**);
+
 
 /* toem_getlininfo.c */
 void init_info_struct(info_t *);
 void init_set_info(info_t *, char **);
+
+/*toe_getinfo*/
+void clear_info(info_t *);
+void set_info(info_t *, char**);
 void free_info_struct(info_t *, int);
 
 /* toem_getenv.c*/
@@ -209,8 +211,8 @@ int _myunsetenv(info_t *);
 int populate_env_list(info_t *);
 
 /* toem_history */
-char *checks_history_file(info_t *info);
-int create_history(info_t *info);
+char *get_history_file(info_t *info);
+int write_history(info_t *info);
 int read_history(info_t *info);
 int list_history(info_t *info, char *, int);
 int reassign_history(info_t *);

@@ -5,7 +5,7 @@
  * @info: information
  * Return: file history
  */
-char *checks_history(info_t *info)
+char *get_history_file(info_t *info)
 {
 	char *buffer, *f;
 
@@ -21,21 +21,21 @@ char *checks_history(info_t *info)
 	}
 	buffer[0] = '\0';
 	_strcpy(buffer, f);
-	_strcati(buffer, "/");
-	_strcati(buffer, HIST_FILE);
+	_strcat(buffer, "/");
+	_strcat(buffer, HIST_FILE);
 
 	return (buffer);
 }
 
 /**
- * create_history - a program function tha creates history
+ * write_history - a program function tha creates history
  * @info: information
  * Return: history
  */
-int create_history(info_t *info)
+int write_history(info_t *info)
 {
-	list_t *node = info->history;
-	char *fnname = checks_history(info);
+	list_t *node = NULL;
+	char *fnname = get_history_file(info);
 	ssize_t pd;
 
 	if (fnname == NULL)
@@ -45,11 +45,10 @@ int create_history(info_t *info)
 	free(fnname);
 	if (pd == -1)
 		return (-1);
-	while (node != NULL)
+	for (node = info->history; node; node = node->next)
 	{
 		_putsfd(node->str, pd);
 		_putfd('\n', pd);
-		node = node->next;
 	}
 	_putfd(BUF_FLUSH, pd);
 	close(pd);
@@ -64,7 +63,7 @@ int create_history(info_t *info)
  */
 int read_history(info_t *info)
 {
-	char *buffer = NULL, *fnname = checks_history(info);
+	char *buffer = NULL, *fnname = get_history_file(info);
 	ssize_t kk, drlen, fssize = 0;
 	struct stat st;
 	int a, end = 0, linecount = 0;
@@ -140,6 +139,5 @@ int reassign_history(info_t *info)
 	{
 		node->num = a++;
 	}
-	info->histcount = a;
-	return (a);
+	return (info->histcount = a);
 }

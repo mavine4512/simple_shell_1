@@ -47,7 +47,7 @@ int main(int agc, char **agv)
 		info->readpd = pd;
 	}
 	populate_env_list(info);
-	create_history(info);
+	read_history(info);
 	hsh(info, agv);
 	return (EXIT_SUCCESS);
 }
