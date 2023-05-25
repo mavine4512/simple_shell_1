@@ -25,7 +25,7 @@ int _delim(char c, char *delim)
 }
 
 /**
- * _alpha -  checks for alphabetic checker
+ * _isalpha -  checks for alphabetic checker
  * @c: The character to input
  * Return: 1 if c is alphabetic, 0 otherwise
  */
