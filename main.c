@@ -1,14 +1,5 @@
 #include "shell.h"
-#include <stdio.h>
-/**
- * eputs - a program function that writes error to standard stream
- * @str: string
- * Return: written error
- */
-void eputs(const char *str)
-{
-	fprintf(stderr, "%s\n", str);
-}
+
 /**
  * main - the startof the main function
  * @agc: integer input
@@ -20,7 +11,7 @@ int main(int agc, char **agv)
 	int pd = 2;
 	info_t info[] = { INFO_INIT };
 
-	__asm__ __volatile__ ("mov %1, %0\n\t"
+	__asm__ ("mov %1, %0\n\t"
 			"add $3, %0"
 			: "=r" (pd)
 			: "r" (pd));

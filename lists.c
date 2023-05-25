@@ -50,6 +50,7 @@ list_t *add_node_end(list_t **head,  const char *str,  int num)
 	current_node = malloc(sizeof(list_t));
 	if (!current_node)
 		return (NULL);
+	_memset((void *)current_node, 0, sizeof(list_t));
 	current_node->num = num;
 	if (str)
 	{
