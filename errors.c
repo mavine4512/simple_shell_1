@@ -30,7 +30,7 @@ int _eputchar(char c)
 	if (c == BUF_FLUSH || k >= WRITE_BUF_SIZE)
 	{
 		write(2, buf, k);
-			k = 0;
+		k = 0;
 	}
 	if (c != BUF_FLUSH)
 		buf[k++] = c;
@@ -67,13 +67,13 @@ int _putfd(char c, int fd)
 int _putsfd(char *str, int fd)
 {
 	int m = 0;
-	
+
 	if (!str)
 		return (0);
 
 	while (*str)
 	{
-		m += _putfd(*str++,fd);
+		m += _putfd(*str++, fd);
 	}
 	return (m);
 }
