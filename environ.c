@@ -57,20 +57,17 @@ int _mysetenv(info_t *info)
  */
 int _myunsetenv(info_t *info)
 {
-	int index;
+	int index = 1;
 
 	if (info->argc <= 1)
 	{
 		_eputs("Error: Too few arguements.\n");
 		return (1);
 	}
-	for (index = 1; index <= info->argc; index++)
+	while (index <= info->argc)
 	{
-		if (get_unsetenv(info, info->argv[index]) != 0)
-		{
-			_eputs("Failed to unset environment variable: ");
-			return (1);
-		}
+		get_unsetenv(info, info->argv[index]);
+		index++;
 	}
 
 	return (0);
@@ -84,9 +81,9 @@ int _myunsetenv(info_t *info)
 int populate_env_list(info_t *info)
 {
 	list_t *node = NULL;
-	size_t i;
+	size_t i = 0;
 
-	for (i = 0; environ[0]; i++)
+	for (i = 0; environ[i]; i++)
 		add_node_end(&node, environ[i], 0);
 	info->env = node;
 	return (0);

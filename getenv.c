@@ -28,16 +28,17 @@ int get_unsetenv(info_t *info, char *temp)
 
 	if (node == NULL || temp == NULL)
 		return (0);
-	for (a = 0; node != NULL; a++)
+	for (node = info->env; node != NULL; node = node->next)
 	{
 		b = starts_with(node->str, temp);
 		if (b && *b == '=')
 		{
 			info->env_swap = delete_node_idx(&(info->env), a);
+			i = 0;
 			node = info->env;
 			continue;
 		}
-		node = node->next;
+		i++;
 	}
 	return (info->env_swap);
 }

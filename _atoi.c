@@ -19,8 +19,13 @@ int inter_active(info_t *info)
 int _delim(char c, char *delim)
 {
 	while (*delim)
+	{
 		if (*delim++ == c)
+		{
 			return (1);
+		}
+		delim++;
+	}
 	return (0);
 }
 

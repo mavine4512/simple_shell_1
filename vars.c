@@ -55,11 +55,21 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t len, size_t i)
 {
 	size_t j = *p;
 
-	if ((info->cmd_buf_type == CMD_AND && info->status)
-			|| (info->cmd_buf_type == CMD_OR && !info->status))
+	if (info->cmd_buf_type == CMD_AND)
 	{
-		buf[i] = 0;
-		j = len;
+		if (info->status)
+		{
+			buf[i] = 0;
+			j = len;
+		}
+	}
+	if (info->cmd_buf_type == CMD_OR)
+	{
+		if (!info->status)
+		{
+			buf[i] = 0;
+			j = len;
+		}
 	}
 	*p = j;
 }
@@ -85,8 +95,8 @@ int replace_alias(info_t *info)
 			if (!p)
 				return (0);
 
-		p++; /*move the pointer to the value after the '=' character*/
-		p = _strdup(p);
+		 /*move the pointer to the value after the '=' character*/
+		p = _strdup(p + 1);
 
 		if (!p)
 			return (0);
@@ -151,10 +161,7 @@ int replace_vars(info_t *info)
  */
 int replace_string(char **old, char *new)
 {
-	if (*old != NULL)
-	{
-		free(*old);
-	}
+	free(*old);
 	*old = new;
 	return (1);
 }
