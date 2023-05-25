@@ -1,4 +1,17 @@
 #include "shell.h"
+
+/**
+ * clear_info - first info_t struct
+ * @info: struct address
+ */
+void clear_info(info_t *info)
+{
+	info->arg = NULL;
+	info->argv = NULL;
+	info->path = NULL;
+	info->argc = 0;
+}
+
 /**
  * init_info_struct - a program function that clears information
  * @info: information
