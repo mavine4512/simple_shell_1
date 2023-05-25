@@ -17,7 +17,7 @@ int hsh(info_t *info, char **av)
 		if (inter_active(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
-		input_size = getline_input(info);
+		input_size = get_input(info);
 		if (input_size != -1)
 		{
 			init_set_info(info, av);
@@ -29,7 +29,7 @@ int hsh(info_t *info, char **av)
 			_putchar('\n');
 		free_info_struct(info, 0);
 	}
-	 read_history(info);
+	 write_history(info);
 	 free_info_struct(info, 1);
 	if (!inter_active(info) && info->status)
 		exit(info->status);
