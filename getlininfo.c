@@ -13,15 +13,6 @@ void clear_info(info_t *info)
 }
 
 /**
- * init_info_struct - a program function that clears information
- * @info: information
- * Return: info
- */
-void init_info_struct(info_t *info)
-{
-	memset(info, 0, sizeof(info_t));
-}
-/**
  * init_set_info - a program function that sets info_t
  * @info: information
  * @arr: array of arguements
@@ -34,13 +25,16 @@ void init_set_info(info_t *info, char **arr)
 	info->fname = arr[0];
 	if (info->arg)
 	{
-		info->argv = malloc(sizeof(char *) * 2);
-		if (info->argv)
+		info->argv = strtow(info->arg, "\t");
+		if (!info->argv)
 		{
-			info->argv[0] = _strdup(info->arg);
-			info->argv[1] = NULL;
+			info->argv = malloc(sizeof(char *) * 2);
+			if (info->argv)
+			{
+				info->argv[0] = _strdup(info->arg);
+				info->argv[1] = NULL;
+			}
 		}
-
 		while (info->argv && info->argv[a])
 		{
 			a++;
@@ -65,13 +59,13 @@ void free_info_struct(info_t *info, int sfd)
 	if (sfd)
 	{
 		if (info->cmd_buf == NULL)
-		{
 			free(info->arg);
-			info->arg = NULL;
-		}
-		free_list_all(&(info->env));
-		free_list_all(&(info->alias));
-		free_list_all(&(info->history));
+		if (info->env)
+			free_list_all(&(info->env));
+		if (info->alias)
+			free_list_all(&(info->alias));
+		if (info->history)
+			free_list_all(&(info->history));
 		s_free(info->environ);
 		info->environ = NULL;
 		_memfree((void **)info->cmd_buf);

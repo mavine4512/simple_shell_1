@@ -135,9 +135,10 @@ int reassign_history(info_t *info)
 	int a = 0;
 	list_t *node = info->history;
 
-	for (; node; node = node->next)
+	while (node)
 	{
 		node->num = a++;
+		node = node->next;
 	}
 	return (info->histcount = a);
 }
