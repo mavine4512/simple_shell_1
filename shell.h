@@ -183,11 +183,10 @@ int _myhistory(info_t *);
 int _myalias(info_t *);
 
 /* toem_getline.c */
-ssize_t get_input_buffer(info_t *);
+ssize_t get_input(info_t *);
 ssize_t getline_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(__attribute__((unused))int);
-
 
 /* toem_getlininfo.c */
 void init_info_struct(info_t *);

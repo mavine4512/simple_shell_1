@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * checks_history - a program function that gets history of files
+ * get_history_file - a program function that gets history of files
  * @info: information
  * Return: file history
  */

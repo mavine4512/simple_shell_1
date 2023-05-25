@@ -17,7 +17,7 @@ int hsh(info_t *info, char **av)
 		if (inter_active(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
-		input_size = get_input_buffer(info);
+		input_size = get_input(info);
 		if (input_size != -1)
 		{
 			set_info(info, av);
