@@ -130,7 +130,7 @@ int _getline(info_t *info, char **ptr, size_t *leng)
 	if (c)
 		_strncat(new_b, buffer + a, m - a);
 	else
-		_strncat(new_b, buffer + a, m - a + 1);
+		_strcpy(new_b, buffer + a, m - a + 1);
 
 	c += m - a;
 	a = m;

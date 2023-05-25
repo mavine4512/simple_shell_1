@@ -100,7 +100,7 @@ void find_cmd(info_t *info)
 
 	/*check if the command is in the path environment variable*/
 	path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
-	if (path != NULL)
+	if (path)
 	{
 		info->path = path;
 		fork_cmd(info);
