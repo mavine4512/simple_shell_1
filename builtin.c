@@ -17,7 +17,7 @@ int _myexit(info_t *info)
 		if (exitcheck == -1)
 		{
 			info->status = 2;
-			print_error(info, "Error : Illegal number : ");
+			print_error(info, "Illegal number: ");
 			_eputs(info->argv[1]);
 			_eputchar('\n');
 			return (1);
@@ -42,17 +42,17 @@ int _mycd(info_t *info)
 
 	s = getcwd(buffer, 1024);
 	if (!s)
-		_puts("Error : getcwd failure emsg her\n");
+		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
 	{
-		dir = _getenv(info, "HOME = ");
+		dir = _getenv(info, "HOME=");
 			if (!dir)
 				chdir_ret =
-					chdir((dir = _getenv(info, "PWD = ")) ? dir : " / ");
+					chdir((dir = _getenv(info, "PWD=")) ? dir : " / ");
 			else
 				 chdir_ret = chdir(dir);
 	}
-	else if (_strcmp(info->argv[1], " - ") == 0)
+	else if (_strcmp(info->argv[1], "-") == 0)
 	{
 		if (!_getenv(info, "OLDPWD"))
 		{
@@ -60,9 +60,9 @@ int _mycd(info_t *info)
 			_putchar('\n');
 			return (1);
 		}
-		_puts(_getenv(info, "OLDPWD")), _putchar('\n');
+		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
 		chdir_ret =
-			chdir((dir = _getenv(info, "PWD = ")) ? dir : " / ");
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : " / ");
 	}
 	else
 		chdir_ret = chdir(info->argv[1]);
@@ -73,7 +73,7 @@ int _mycd(info_t *info)
 	}
 	else
 	{
-		get_setenv(info, "PWD=", _getenv(info, "PWD="));
+		get_setenv(info, "OLDPWD=", _getenv(info, "PWD="));
 		get_setenv(info, "PWD=", getcwd(buffer, 1024));
 	}
 	return (0);
@@ -90,7 +90,7 @@ int _myhelp(info_t *info)
 	char **arg_array;
 
 	arg_array = info->argv;
-	_puts("Sorry the FUNCTION IS not yet implemented \n");
+	_puts("help call work Function not yet implemented \n");
 	if (0)
 		_puts(*arg_array);
 	return (0);

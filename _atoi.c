@@ -24,7 +24,6 @@ int _delim(char c, char *delim)
 		{
 			return (1);
 		}
-		delim++;
 	}
 	return (0);
 }

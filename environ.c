@@ -42,7 +42,7 @@ int _mysetenv(info_t *info)
 {
 	if (info->argc != 3)
 	{
-		_eputs("Error: incorrect number of arguements\n");
+		_eputs("Incorrect number of arguements\n");
 		return (1);
 	}
 	if (get_setenv(info, info->argv[1], info->argv[2]))
@@ -61,7 +61,7 @@ int _myunsetenv(info_t *info)
 
 	if (info->argc <= 1)
 	{
-		_eputs("Error: Too few arguements.\n");
+		_eputs("Too few arguements.\n");
 		return (1);
 	}
 	while (index <= info->argc)
