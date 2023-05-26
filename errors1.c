@@ -11,7 +11,7 @@ int _erratoi(char *s)
 	int k = 0;
 	unsigned long int result = 0;
 
-	if (*s == '*')
+	if (*s == '+')
 		s++;
 	for (k = 0; s[k] != '\0'; k++)
 	{
@@ -130,11 +130,9 @@ void remove_comments(char *buf)
 	int k;
 
 	for (k = 0; buf[k] != '\0'; k++)
-	{
 		if (buf[k] == '#' && (!k || buf[k - 1] == ' '))
 		{
 			buf[k] = '\0';
 			break;
 		}
-	}
 }

@@ -48,7 +48,7 @@ char *starts_with(const char *haystack, const char *needle)
 {
 	while (*needle)
 	{
-		if (*haystack != *needle)
+		if (*needle++ != *haystack++)
 			return (NULL);
 	}
 	return ((char *)haystack);

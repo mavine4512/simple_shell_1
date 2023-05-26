@@ -17,25 +17,25 @@ ssize_t input_buffer(info_t *info, char **buffer, size_t *base)
 		*buffer = NULL;
 		signal(SIGINT, sigintHandler);
 #if USE_GETLINE
-	q = getline(buffer, &base_p, stdin);
+		q = getline(buffer, &base_p, stdin);
 #else
-	q = _getline(info, buffer, &base_p);
+		q = _getline(info, buffer, &base_p);
 #endif
-	if (q > 0)
-	{
-		if ((*buffer)[q - 1] == '\n')
+		if (q > 0)
 		{
-			(*buffer)[q - 1] = '\0';
-			q--;
+			if ((*buffer)[q - 1] == '\n')
+			{
+				(*buffer)[q - 1] = '\0';
+				q--;
+			}
+			info->linecount_flag = 1;
+			remove_comments(*buffer);
+			list_history(info, *buffer, info->histcount++);
+			{
+				*base = q;
+				info->cmd_buf = buffer;
+			}
 		}
-		info->linecount_flag = 1;
-		remove_comments(*buffer);
-		list_history(info, *buffer, info->histcount++);
-		{
-			*base = q;
-			info->cmd_buf = buffer;
-		}
-	}
 	}
 	return (q);
 }
@@ -60,20 +60,24 @@ ssize_t getline_input(info_t *info)
 		x = a;
 		b = buffer + a;
 		check_chain(info, buffer, &x, a, base);
-		do {
+		while (x < base)
+		{
 			if (is_chain(info, buffer, &x))
 				break;
 			x++;
-			} while (x < base);
+		}
+
 		a = x + 1;
-			if (a >= base)
-			{
-				a = base = 0;
-				info->cmd_buf_type = CMD_NORM;
-			}
-			*buffer_b = b;
-			return (_strlen(b));
+		if (a >= base)
+		{
+			a = base = 0;
+			info->cmd_buf_type = CMD_NORM;
+		}
+
+		*buffer_b = b;
+		return (_strlen(b));
 	}
+
 	*buffer_b = buffer;
 	return (q);
 }

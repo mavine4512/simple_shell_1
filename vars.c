@@ -10,36 +10,24 @@
 int is_chain(info_t *info, char *buf, size_t *p)
 {
 	size_t j = *p;
-	int isChain = 0;
 
-	if (buf[j] == '|')
-	{
-		if (buf[j + 1] == '|')
-		{
-			buf[j] = 0;
-			j++;
-			info->cmd_buf_type = CMD_OR;
-			isChain = 1;
-		}
-	}
-	else if (buf[j] == '&')
-	{
-		if (buf[j + 1] == '&')
-		{
-			buf[j] = 0;
-			j++;
-			info->cmd_buf_type = CMD_AND;
-			isChain = 1;
-		}
-	}
-	else if (buf[j] == ';')
+	if (buf[j] == '|' && buf[j + 1] == '|')
 	{
 		buf[j] = 0;
-		info->cmd_buf_type = CMD_CHAIN;
-		isChain = 1;
+		j++;
+		info->cmd_buf_type = CMD_OR;
 	}
+	else if (buf[j] == '&' && buf[j + 1] == '&')
+	{
+		buf[j] = 0;
+		j++;
+		info->cmd_buf_type = CMD_AND;
+	}
+	else
+		return (0);
+
 	*p = j;
-	return (isChain);
+	return (1);
 }
 
 /**
@@ -92,10 +80,10 @@ int replace_alias(info_t *info)
 			return (0);
 		free(info->argv[0]);
 		p = _strchr(node->str, '=');
-			if (!p)
-				return (0);
+		if (!p)
+			return (0);
 
-		 /*move the pointer to the value after the '=' character*/
+		/*move the pointer to the value after the '=' character*/
 		p = _strdup(p + 1);
 
 		if (!p)

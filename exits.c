@@ -12,15 +12,19 @@ char *_strncpy(char *dest, char *src, int n)
 	int i, x;
 	char *s = dest;
 
-	for (i = 0; i < n && src[i] != '\0'; i++)
+	i = 0;
+	while (src[i] != '\0' && i < n - 1)
 	{
 		dest[i] = src[i];
+		i++;
 	}
 	if (i < n)
 	{
-		for (x = i; x < n; x++)
+		x = i;
+		while (x < n)
 		{
 			dest[x] = '\0';
+			x++;
 		}
 	}
 	return (s);
@@ -34,18 +38,24 @@ char *_strncpy(char *dest, char *src, int n)
  */
 char *_strncat(char *dest, char *src, int n)
 {
+	int i, x;
 	char *s = dest;
 
+	i = 0;
+	x = 0;
 	/*Move dest pointer to end of string*/
-	while (*dest != '\0')
-		dest++;
-
+	while (dest[i] != '\0')
+		i++;
 	/*Copy src to dest until n characters hv been copied*/
 	/*or the end of src is reached*/
-	while (*src != '\0' && n--)
-		*dest++ = *src++;
-
-	*dest = '\0';
+	while (src[x] != '\0' && x < n)
+	{
+		dest[i] = src[x];
+		i++;
+		x++;
+	}
+	if (x > n)
+		dest[i] = '\0';
 	return (s);
 }
 

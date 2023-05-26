@@ -11,11 +11,11 @@ char **strtow(char *str, char *d)
 	int wordIndex = 0, startIndex = 0, numWords = 0, len = strlen(str), i, j, wl;
 	char **s = NULL;
 
-	if (str == NULL || str[0] == '\0')
+	if (str == NULL || str[0] == 0)
 		return (NULL);
 	if (!d)
 		d = " ";
-	for (i = 0; i < len; i++)
+	for (i = 0; str[i] != '\0'; i++)
 		if (!_delim(str[i], d) && (_delim(str[i + 1], d) || str[i + 1]))
 			numWords++;
 
@@ -74,6 +74,8 @@ char **strtow2(char *str, char d)
 	if (numWords == 0)
 		return (NULL);
 	s = malloc((1 + numWords) * sizeof(char *));
+	if (!s)
+		return (NULL);
 	for (i = 0; i < numWords; i++)
 	{
 		if (str[i] == d || str[i] != '\0')
