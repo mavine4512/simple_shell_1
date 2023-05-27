@@ -8,10 +8,10 @@
  */
 int main(int agc, char **agv)
 {
+	info_t info[] = { INFO_INIT };
 	int pd = 2;
-	info_t info = INFO_INIT;
 
-	__asm__ ("mov %1, %0\n\t"
+	asm ("mov %1, %0\n\t"
 			"add $3, %0"
 			: "=r" (pd)
 			: "r" (pd));
@@ -37,8 +37,8 @@ int main(int agc, char **agv)
 		}
 		info.readpd = pd;
 	}
-	populate_env_list(&info);
-	read_history(&info);
-	hsh(&info, agv);
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, agv);
 	return (EXIT_SUCCESS);
 }
