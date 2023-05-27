@@ -110,38 +110,30 @@ int replace_vars(info_t *info)
 	int i = 0;
 	list_t *node;
 
-	while (info->argv[i] == NULL)
+	for (i = 0; info->argv[i]; i++)
 	{
-		if (info->argv[i][0] == '$' && info->argv[i][1] != '\0')
+		if (info->argv[i][0] != '$' || !info->argv[i][1])
+			continue;
+		if (!_strcmp(info->argv[i], "$?"))
 		{
-			if (!_strcmp(info->argv[i], "$?"))
-			{
-				replace_string(&(info->argv[i]),
-						_strdup(convert_number(info->status, 10, 0)));
-				continue;
-			}
-			else if (!_strcmp(info->argv[i], "$$"))
-			{
-				replace_string(&(info->argv[i]),
-						_strdup(convert_number(getpid(),
-								10, 0)));
-				continue;
-			}
-			else
-			{
-				node = node_pointer(info->env, &(info->argv[i][1]), '=');
-				if (node)
-				{
-					replace_string(&(info->argv[i]), _strdup(_strchr(node->str, '=') + 1));
-					continue;
-				}
-				else
-				{
-					replace_string(&(info->argv[i]), _strdup(""));
-				}
-			}
+			replace_string(&(info->argv[i]),
+					_strdup(convert_number(info->status, 10, 0)));
+			continue;
 		}
-		i++;
+		if (!_strcmp(info->argv[i], "$$"))
+		{
+			replace_string(&(info->argv[i]),
+					_strdup(convert_number(getpid(), 10, 0)));
+			continue;
+		}
+		node = node_pointer(info->env, &(info->argv[i][1]), '=');
+		if (node)
+		{
+			replace_string(&(info->argv[i]),
+					_strdup(_strchr(node->str, '=') + 1));
+			continue;
+		}
+		replace_string(&(info->argv[i]), _strdup(""));
 	}
 	return (0);
 }
