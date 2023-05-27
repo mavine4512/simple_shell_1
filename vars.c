@@ -126,14 +126,14 @@ int replace_vars(info_t *info)
 					_strdup(convert_number(getpid(), 10, 0)));
 			continue;
 		}
-		node = node_pointer(info->env, &(info->argv[i][1]), '=');
+		node = node_pointer(info->env, &info->argv[i][1], '=');
 		if (node)
 		{
 			replace_string(&(info->argv[i]),
 					_strdup(_strchr(node->str, '=') + 1));
 			continue;
 		}
-		replace_string(&(info->argv[i]), _strdup(""));
+		replace_string(&info->argv[i], _strdup(""));
 	}
 	return (0);
 }
