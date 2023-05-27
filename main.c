@@ -30,7 +30,7 @@ int main(int agc, char **agv)
 				_eputs(": 0: Close ");
 				_eputs(agv[1]);
 				_eputchar('\n');
-				_putchar(BUF_FLUSH);
+				_eputchar(BUF_FLUSH);
 				exit(127);
 			}
 			return (EXIT_FAILURE);
