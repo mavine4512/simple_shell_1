@@ -7,7 +7,7 @@
  */
 char **get_environ_info(info_t *info)
 {
-	if (info->environ == NULL || !info->env_swap)
+	if (!info->environ || !info->env_swap)
 	{
 		info->environ = list_strings(info->env);
 		info->env_swap = 0;
@@ -26,7 +26,7 @@ int get_unsetenv(info_t *info, char *temp)
 	size_t a = 0;
 	char *b;
 
-	if (node == NULL || temp == NULL)
+	if (!node || !temp)
 		return (0);
 	for (node = info->env; node != NULL; node = node->next)
 	{
@@ -54,7 +54,7 @@ int get_setenv(info_t *info, char *temp, char *eval)
 	char *b, *buffer = NULL;
 	list_t *node;
 
-	if (eval == NULL || temp == NULL)
+	if (!eval || !temp)
 		return (0);
 
 	buffer = malloc(_strlen(temp) + _strlen(eval) + 2);

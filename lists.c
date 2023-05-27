@@ -11,7 +11,7 @@ list_t *add_node_start(list_t **head, const char *str, int num)
 {
 	list_t *current_head;
 
-	if (head == NULL)
+	if (!head)
 		return (NULL);
 	current_head = malloc(sizeof(list_t));
 	if (!current_head)
@@ -82,10 +82,12 @@ size_t print_list(const list_t *t)
 {
 	size_t a = 0;
 
-	for (; t; t = t->next, a++)
+	while (t)
 	{
 		_puts(t->str ? t->str : "(nil)");
 		_puts("\n");
+		t = t->next;
+		t++;
 	}
 	return (a);
 
@@ -101,7 +103,7 @@ int delete_node_idx(list_t **head, unsigned int idx)
 	list_t *node = *head, *ex_node;
 	unsigned int a = 0;
 
-	if (head == NULL || !*head)
+	if (!head || !*head)
 		return (0);
 	if (idx == 0)
 	{
@@ -109,6 +111,7 @@ int delete_node_idx(list_t **head, unsigned int idx)
 		*head = (*head)->next;
 		free(node->str);
 		free(node);
+		return (1);
 	}
 	node = *head;
 	ex_node = NULL;

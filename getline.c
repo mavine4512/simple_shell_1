@@ -129,7 +129,7 @@ int _getline(info_t *info, char **ptr, size_t *leng)
 	s = _strchr(buffer + a, '\n');
 	m = s ? 1 + (unsigned int)(s - buffer) : base;
 	new_b = _realloc(b, c, c ? c + m : m + 1);
-	if (new_b == NULL)
+	if (!new_b)
 		return (b ? free(b), -1 : -1);
 	if (c)
 		_strncat(new_b, buffer + a, m - a);
