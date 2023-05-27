@@ -9,7 +9,7 @@
 int main(int agc, char **agv)
 {
 	int pd = 2;
-	info_t info[] = { INFO_INIT };
+	info_t info = INFO_INIT;
 
 	__asm__ ("mov %1, %0\n\t"
 			"add $3, %0"
@@ -35,10 +35,10 @@ int main(int agc, char **agv)
 			}
 			return (EXIT_FAILURE);
 		}
-		info->readpd = pd;
+		info.readpd = pd;
 	}
-	populate_env_list(info);
-	read_history(info);
-	hsh(info, agv);
+	populate_env_list(&info);
+	read_history(&info);
+	hsh(&info, agv);
 	return (EXIT_SUCCESS);
 }
